@@ -23,14 +23,14 @@ def call_api(tapeout_name: str, token: str):
         "Ocp-Apim-Subscription-Key": config.SUBSCRIPTION_KEY,
         "Accept": "application/json",
     }
-    r = requests.get(url, headers=headers, timeout=10)
+    r = requests.get(url, headers=headers, timeout=30)
     r.raise_for_status()
     if "application/json" in r.headers.get("Content-Type", "").lower():
-        dst = f"output/data/{tapeout_name}.json"
+        dst = config.DST_DATA_DIR / f"{tapeout_name}.json"
         with open(dst, "w", encoding="utf-8") as f:
-            json.dump(r.json(), f)
+            json.dump(r.json()["PartTapeOut"], f)
     else:
-        dst = f"output/data/{tapeout_name}.txt"
+        dst = config.DST_DATA_DIR / f"{tapeout_name}.txt"
         with open(dst, "w", encoding="utf-8") as f:
             f.write(r.text)
     print(dst)

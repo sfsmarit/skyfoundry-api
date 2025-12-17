@@ -2,6 +2,7 @@ import os
 import json
 from datetime import datetime, timedelta
 import string
+from pathlib import Path
 
 
 def load_settings():
@@ -21,6 +22,10 @@ def get_revision_codes(part: str):
         # MPS starts from "N"
         return codes[codes.index("N"):]
     return codes
+
+
+DST_ROOT_DIR = Path("/data/tapeout")
+DST_DATA_DIR = DST_ROOT_DIR / "data"
 
 
 AUTHORITY = f"https://login.microsoftonline.com/a6f77e9a-f53b-4802-9d7b-201cd6376692"
