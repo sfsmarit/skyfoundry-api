@@ -40,10 +40,7 @@ if __name__ == "__main__":
     token = acquire_token_client_credentials()
 
     tapeout_name = f"DG032-N-OSK"
-    try:
-        call_api(tapeout_name, token)
-    except:
-        print(f"{tapeout_name} not found")
+    call_api(tapeout_name, token)
     exit()
 
     settings = config.load_settings()
