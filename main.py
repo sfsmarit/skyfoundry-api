@@ -40,14 +40,14 @@ if __name__ == "__main__":
     token = acquire_token_client_credentials()
     settings = config.load_settings()
     for header in settings["target_pn"]:
-        for n, num in enumerate(range(1000)):
+        for n, num in enumerate(range(1, 1000)):
             for r, rev in enumerate(config.get_revision_codes(header)):
-                tapeout_name = f"{header}{num}-{rev}-OSK"
+                tapeout_name = f"{header}{num:03}-{rev}-OSK"
                 try:
                     call_api(tapeout_name, token)
                 except:
+                    print(f"{tapeout_name} not found")
                     break
 
             if r == 0:
-                print(f"Tape-out not found for {header}{num}-*-OSK")
                 break
