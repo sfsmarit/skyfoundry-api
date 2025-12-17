@@ -1,0 +1,10 @@
+{
+    "lookback_days": 365,
+    "target_pn": [
+        "DG", "DF", "DE", "DD",
+        "JG", "JF", "JE", "JD",
+        "EF",
+        "SF"
+    ]
+    
+}
