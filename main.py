@@ -26,11 +26,14 @@ def call_api(tapeout_name: str, token: str):
     r = requests.get(url, headers=headers, timeout=10)
     r.raise_for_status()
     if "application/json" in r.headers.get("Content-Type", "").lower():
-        with open(f"output/data/{tapeout_name}.json", "w", encoding="utf-8") as f:
+        dst = f"output/data/{tapeout_name}.json"
+        with open(dst, "w", encoding="utf-8") as f:
             json.dump(r.json(), f)
     else:
-        with open(f"output/data/{tapeout_name}.txt", "w", encoding="utf-8") as f:
+        dst = f"output/data/{tapeout_name}.txt"
+        with open(dst, "w", encoding="utf-8") as f:
             f.write(r.text)
+    print(dst)
 
 
 if __name__ == "__main__":
@@ -46,5 +49,5 @@ if __name__ == "__main__":
                     break
 
             if r == 0:
-                print(f"\tTape-out not found for {header}{num}-*-OSK")
+                print(f"Tape-out not found for {header}{num}-*-OSK")
                 break
