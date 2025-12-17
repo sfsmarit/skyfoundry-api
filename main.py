@@ -43,11 +43,12 @@ if __name__ == "__main__":
         for n, num in enumerate(range(1, 1000)):
             for r, rev in enumerate(config.get_revision_codes(header)):
                 tapeout_name = f"{header}{num:03}-{rev}-OSK"
+                tapeout_name = f"DG032-N-OSK"
                 try:
                     call_api(tapeout_name, token)
                 except:
                     print(f"{tapeout_name} not found")
                     break
-
+                exit()
             if r == 0:
                 pass  # break
