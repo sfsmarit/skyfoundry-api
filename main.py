@@ -50,4 +50,4 @@ if __name__ == "__main__":
                     break
 
             if r == 0:
-                break
+                pass  # break

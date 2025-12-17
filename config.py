@@ -17,7 +17,7 @@ def get_start_date():
 
 def get_revision_codes(part: str):
     codes = string.ascii_uppercase
-    if part[0] in ["D", "S"]:
+    if part[0] in ["D", "J"]:
         # MPS starts from "N"
         return codes[codes.index("N"):]
     return codes
