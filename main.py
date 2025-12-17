@@ -28,7 +28,8 @@ def call_api(tapeout_name: str, token: str):
     if "application/json" in r.headers.get("Content-Type", "").lower():
         dst = config.DST_DATA_DIR / f"{tapeout_name}.json"
         with open(dst, "w", encoding="utf-8") as f:
-            json.dump(r.json()["PartTapeOut"], f)
+            data = r.json()
+            json.dump(data["PartTapeOut"], f)
     else:
         dst = config.DST_DATA_DIR / f"{tapeout_name}.txt"
         with open(dst, "w", encoding="utf-8") as f:
