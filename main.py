@@ -4,7 +4,7 @@ import config
 import json
 
 
-def format_json(data: dict):
+def format_data(data: dict):
     return data
 
 
@@ -20,7 +20,7 @@ def acquire_token_client_credentials() -> str:
     return result["access_token"]  # type: ignore
 
 
-def get_and_save_data(token: str, word: str):
+def find_tapeouts(token: str, word: str):
     url = f"{config.APIM_BASE}/SkyFoundry/search_tapeout/{word}"
     headers = {
         "Authorization": f"Bearer {token}",
@@ -35,13 +35,21 @@ def get_and_save_data(token: str, word: str):
     if not isinstance(data, list):
         data = [data]
 
-    for d in data:
-        d = format_json(d)
-        name = d["TapeOutName"]
-        dst = config.DST_DATA_DIR / f"{name}.json"
-        with open(dst, "w", encoding="utf-8") as f:
-            json.dump(d, f, ensure_ascii=False, indent=4)
-        print(dst)
+    keys = ["TapeOutName", "Status", "ScheduledTapeOutDate"]
+    return [{k: d[k] for k in keys} for d in data]
+
+
+def get_data(token: str, tapeout: str):
+    url = f"{config.APIM_BASE}/SkyFoundry/tapeout/{tapeout}"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Ocp-Apim-Subscription-Key": config.SUBSCRIPTION_KEY,
+        "Accept": "application/json",
+    }
+    print(f"Requesting {tapeout} data...")
+    r = requests.get(url, headers=headers, timeout=30)
+    r.raise_for_status()
+    return r.json()["TapeOut"]
 
 
 if __name__ == "__main__":
@@ -49,5 +57,16 @@ if __name__ == "__main__":
     settings = config.load_settings()
 
     for word in settings["target_parts"]:
-        get_and_save_data(token, word)
-        exit()
+        tapeouts = find_tapeouts(token, word)
+
+        for data in tapeouts:
+            tapeout = data["TapeOutName"]
+            data = get_data(token, tapeout)
+            data = format_data(data)
+
+            dst = config.DST_DATA_DIR / f"{tapeout}.json"
+            with open(dst, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+            print(dst)
+
+            exit()
