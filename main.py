@@ -4,6 +4,10 @@ import config
 import json
 
 
+def format_json(data: dict):
+    return data
+
+
 def acquire_token_client_credentials() -> str:
     app = msal.ConfidentialClientApplication(
         client_id=config.CLIENT_ID,
@@ -16,8 +20,8 @@ def acquire_token_client_credentials() -> str:
     return result["access_token"]  # type: ignore
 
 
-def find_tapeouts(token: str, word: str):
-    url = f"{config.APIM_BASE}/SkyFoundry/search_tapeout/*{word}*"
+def get_and_save_data(token: str, word: str):
+    url = f"{config.APIM_BASE}/SkyFoundry/search_tapeout/{word}"
     headers = {
         "Authorization": f"Bearer {token}",
         "Ocp-Apim-Subscription-Key": config.SUBSCRIPTION_KEY,
@@ -25,58 +29,24 @@ def find_tapeouts(token: str, word: str):
     }
     r = requests.get(url, headers=headers, timeout=30)
     r.raise_for_status()
-    if "application/json" in r.headers.get("Content-Type", "").lower():
-        print(r.json())
-    else:
-        print(r.text)
+    data = r.json()["TapeOut"]
 
+    if not isinstance(data, list):
+        data = [data]
 
-def get_and_save_data(token: str, tapeout_name: str):
-    url = f"{config.APIM_BASE}/SkyFoundry/tapeout/{tapeout_name}"
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Ocp-Apim-Subscription-Key": config.SUBSCRIPTION_KEY,
-        "Accept": "application/json",
-    }
-    r = requests.get(url, headers=headers, timeout=30)
-    r.raise_for_status()
-    if "application/json" in r.headers.get("Content-Type", "").lower():
-        dst = config.DST_DATA_DIR / f"{tapeout_name}.json"
+    for d in data:
+        d = format_json(d)
+        name = d["TapeOutName"]
+        dst = config.DST_DATA_DIR / f"{name}.json"
         with open(dst, "w", encoding="utf-8") as f:
-            data = format_json(r.json())
-            json.dump(data, f)
-    else:
-        dst = config.DST_DATA_DIR / f"{tapeout_name}.txt"
-        with open(dst, "w", encoding="utf-8") as f:
-            f.write(r.text)
-    print(dst)
-
-
-def format_json(data: dict):
-    data = data["PartTapeOut"]
-    return data
+            json.dump(d, f)
+        print(dst)
 
 
 if __name__ == "__main__":
     token = acquire_token_client_credentials()
-
-    word = "DG"
-    find_tapeouts(token, word)
-    exit()
-
-    tapeout_name = f"DG032-N-OSK"
-    get_and_save_data(token, tapeout_name)
-    exit()
-
     settings = config.load_settings()
-    for header in settings["target_pn"]:
-        for n, num in enumerate(range(1, 1000)):
-            for r, rev in enumerate(config.get_revision_codes(header)):
-                tapeout_name = f"{header}{num:03}-{rev}-OSK"
-                try:
-                    get_and_save_data(tapeout_name, token)
-                except:
-                    print(f"{tapeout_name} not found")
-                    break
-            if r == 0:
-                pass  # break
+
+    for word in settings["target_parts"]:
+        get_and_save_data(token, word)
+        exit()
