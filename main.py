@@ -27,6 +27,7 @@ def get_and_save_data(token: str, word: str):
         "Ocp-Apim-Subscription-Key": config.SUBSCRIPTION_KEY,
         "Accept": "application/json",
     }
+    print(f"Requesting {word} data...")
     r = requests.get(url, headers=headers, timeout=30)
     r.raise_for_status()
     data = r.json()["TapeOut"]
@@ -39,7 +40,7 @@ def get_and_save_data(token: str, word: str):
         name = d["TapeOutName"]
         dst = config.DST_DATA_DIR / f"{name}.json"
         with open(dst, "w", encoding="utf-8") as f:
-            json.dump(d, f)
+            json.dump(d, f, ensure_ascii=False, indent=4)
         print(dst)
 
 
