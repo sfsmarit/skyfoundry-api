@@ -27,7 +27,6 @@ def find_tapeouts(token: str, word: str):
         "Ocp-Apim-Subscription-Key": config.SUBSCRIPTION_KEY,
         "Accept": "application/json",
     }
-    print(f"Requesting {word} data...")
     r = requests.get(url, headers=headers, timeout=30)
     r.raise_for_status()
     data = r.json()["TapeOut"]
@@ -39,17 +38,16 @@ def find_tapeouts(token: str, word: str):
     return [{k: d[k] for k in keys} for d in data]
 
 
-def get_data(token: str, tapeout: str):
+def get_tapeout_data(token: str, tapeout: str):
     url = f"{config.APIM_BASE}/SkyFoundry/tapeout/{tapeout}"
     headers = {
         "Authorization": f"Bearer {token}",
         "Ocp-Apim-Subscription-Key": config.SUBSCRIPTION_KEY,
         "Accept": "application/json",
     }
-    print(f"Requesting {tapeout} data...")
     r = requests.get(url, headers=headers, timeout=30)
     r.raise_for_status()
-    return r.json()["TapeOut"]
+    return r.json()["PartTapeOut"]
 
 
 if __name__ == "__main__":
@@ -57,11 +55,15 @@ if __name__ == "__main__":
     settings = config.load_settings()
 
     for word in settings["target_parts"]:
+        print(f"Requesting {word} data...")
         tapeouts = find_tapeouts(token, word)
+        print(tapeouts)
 
         for data in tapeouts:
             tapeout = data["TapeOutName"]
-            data = get_data(token, tapeout)
+
+            print(f"Requesting {tapeout} data...")
+            data = get_tapeout_data(token, tapeout)
             data = format_data(data)
 
             dst = config.DST_DATA_DIR / f"{tapeout}.json"
