@@ -57,7 +57,7 @@ if __name__ == "__main__":
     for word in settings["target_parts"]:
         print(f"Requesting {word} data...")
         tapeouts = find_tapeouts(token, word)
-        print(tapeouts)
+        print(t["TapeOutName"] for t in tapeouts)
 
         for data in tapeouts:
             tapeout = data["TapeOutName"]

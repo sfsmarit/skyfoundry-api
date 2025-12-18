@@ -3,6 +3,8 @@ import json
 from datetime import datetime, timedelta
 import string
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def load_settings():
@@ -27,13 +29,11 @@ def get_revision_codes(part: str):
 DST_ROOT_DIR = Path("/data/tapeout")
 DST_DATA_DIR = DST_ROOT_DIR / "data"
 
+AUTHORITY = os.getenv("AUTHORITY")
+CLIENT_ID = os.getenv("CLIENT_ID")
+SCOPE = [os.getenv("SCOPE")]
+APIM_BASE = os.getenv("APIM_BASE")
 
-AUTHORITY = f"https://login.microsoftonline.com/a6f77e9a-f53b-4802-9d7b-201cd6376692"
-CLIENT_ID = "5aa19a25-9f1a-4e97-8748-84b856c3907c"
-SCOPE = ["e66e21b4-6c6b-4f0d-9765-f6e818884c25/.default"]
-APIM_BASE = "https://skyworks.azure-api.net"
-
-# .cshrc.local
 CLIENT_SECRET = os.getenv("AAD_CLIENT_SECRET")
 SUBSCRIPTION_KEY = os.getenv("APIM_SUBSCRIPTION_KEY")
 
