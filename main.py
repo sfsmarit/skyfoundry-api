@@ -16,7 +16,22 @@ def acquire_token_client_credentials() -> str:
     return result["access_token"]  # type: ignore
 
 
-def call_api(tapeout_name: str, token: str):
+def find_tapeouts(token: str, word: str):
+    url = f"{config.APIM_BASE}/SkyFoundry/search_tapeout/*{word}*"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Ocp-Apim-Subscription-Key": config.SUBSCRIPTION_KEY,
+        "Accept": "application/json",
+    }
+    r = requests.get(url, headers=headers, timeout=30)
+    r.raise_for_status()
+    if "application/json" in r.headers.get("Content-Type", "").lower():
+        print(r.json())
+    else:
+        print(r.text)
+
+
+def get_and_save_data(token: str, tapeout_name: str):
     url = f"{config.APIM_BASE}/SkyFoundry/tapeout/{tapeout_name}"
     headers = {
         "Authorization": f"Bearer {token}",
@@ -28,8 +43,8 @@ def call_api(tapeout_name: str, token: str):
     if "application/json" in r.headers.get("Content-Type", "").lower():
         dst = config.DST_DATA_DIR / f"{tapeout_name}.json"
         with open(dst, "w", encoding="utf-8") as f:
-            data = r.json()
-            json.dump(data["PartTapeOut"], f)
+            data = format_json(r.json())
+            json.dump(data, f)
     else:
         dst = config.DST_DATA_DIR / f"{tapeout_name}.txt"
         with open(dst, "w", encoding="utf-8") as f:
@@ -37,11 +52,20 @@ def call_api(tapeout_name: str, token: str):
     print(dst)
 
 
+def format_json(data: dict):
+    data = data["PartTapeOut"]
+    return data
+
+
 if __name__ == "__main__":
     token = acquire_token_client_credentials()
 
+    word = "DG"
+    find_tapeouts(token, word)
+    exit()
+
     tapeout_name = f"DG032-N-OSK"
-    call_api(tapeout_name, token)
+    get_and_save_data(token, tapeout_name)
     exit()
 
     settings = config.load_settings()
@@ -50,7 +74,7 @@ if __name__ == "__main__":
             for r, rev in enumerate(config.get_revision_codes(header)):
                 tapeout_name = f"{header}{num:03}-{rev}-OSK"
                 try:
-                    call_api(tapeout_name, token)
+                    get_and_save_data(tapeout_name, token)
                 except:
                     print(f"{tapeout_name} not found")
                     break

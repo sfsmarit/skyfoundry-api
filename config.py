@@ -44,12 +44,12 @@ IGNORED_STATUSES = ["taped out", "cancelled"]
 
 SUMMARY_KEYS = [
     "ScheduledTapeOutDate",
-    "StatusName",
+    "Status",
     "url",
     "BandNames",
-    "ApplicationName",
-    "DesignerName",
-    "SFSTeamLeaderName",
+    "Application",
+    "LeadDesigner",
+    "TeamLeader",
 ]
 
 SAVED_KEYS = [
