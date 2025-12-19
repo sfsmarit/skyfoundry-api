@@ -113,7 +113,11 @@ if __name__ == "__main__":
 
         for word in settings["target_parts"]:
             print(f"Requesting {word} data...")
-            tapeouts = find_tapeouts(token, word)
+            try:
+                tapeouts = find_tapeouts(token, word)
+            except Exception as e:
+                print(e)
+                continue
 
             for data in tapeouts:
                 tapeout = data["TapeOutName"]
@@ -124,7 +128,12 @@ if __name__ == "__main__":
                     continue
 
                 print(f"\tRequesting {tapeout} data...")
-                data = get_tapeout_data(token, tapeout)
+                try:
+                    data = get_tapeout_data(token, tapeout)
+                except Exception as e:
+                    print(e)
+                    continue
+
                 data = format_data(data)
 
                 # Add url
