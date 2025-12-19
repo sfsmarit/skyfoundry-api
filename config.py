@@ -12,9 +12,6 @@ if os.name == "nt":
 else:
     URL_FILE = "/home/marit/python/skyfoundry-scraper/output/url.json"
 
-DST_ROOT_DIR = Path("/data/tapeout")
-DST_DATA_DIR = DST_ROOT_DIR / "data"
-
 
 def load_settings():
     with open("settings.json", encoding="utf-8") as f:

@@ -1,2 +1,2 @@
 msal
-dotenv
+python-dotenv
