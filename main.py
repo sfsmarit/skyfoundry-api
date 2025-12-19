@@ -127,7 +127,7 @@ if __name__ == "__main__":
                     print("\t\t", f"Skip {tapeout} ({status_in_summary})")
                     continue
 
-                print(f"\tRequesting {tapeout} data...")
+                print(f"\tRequesting {tapeout}...")
                 try:
                     data = get_tapeout_data(token, tapeout)
                 except Exception as e:
@@ -143,7 +143,6 @@ if __name__ == "__main__":
                 dst = config.TAPEOUT_DIR / f"{tapeout}.json"
                 with open(dst, "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False, indent=4)
-                print("\t\t", dst)
 
                 # Write into summary
                 summary[tapeout] = {k: data[k] for k in config.SUMMARY_KEYS}
