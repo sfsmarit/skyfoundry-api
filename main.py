@@ -2,6 +2,7 @@ import msal
 import requests
 import config
 import json
+import time
 
 
 def format_data(data: dict):
@@ -90,25 +91,56 @@ def get_tapeout_data(token: str, tapeout: str):
 
 if __name__ == "__main__":
     token = acquire_token_client_credentials()
-    settings = config.load_settings()
 
-    with open(config.URL_FILE, encoding="utf-8") as f:
-        urls = json.load(f)
+    while True:
+        settings = config.load_settings()
 
-    for word in settings["target_parts"]:
-        print(f"Requesting {word} data...")
-        tapeouts = find_tapeouts(token, word)
+        # Load summary
+        try:
+            with open(config.SUMMARY_FILE, encoding="utf-8") as f:
+                summary = json.load(f)
+        except:
+            print(f"{config.SUMMARY_FILE} not found")
+            summary = {}
 
-        for data in tapeouts:
-            tapeout = data["TapeOutName"]
+        # Load url
+        try:
+            with open(config.URL_FILE, encoding="utf-8") as f:
+                urls = json.load(f)
+        except:
+            print(f"{config.URL_FILE} not found")
+            urls = {}
 
-            print(f"Requesting {tapeout} data...")
-            data = get_tapeout_data(token, tapeout)
-            data = format_data(data)
+        for word in settings["target_parts"]:
+            print(f"Requesting {word} data...")
+            tapeouts = find_tapeouts(token, word)
 
-            data["url"] = urls.get(tapeout, "")
+            for data in tapeouts:
+                tapeout = data["TapeOutName"]
 
-            dst = f"data/{tapeout}.json"
-            with open(dst, "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=4)
-            print("\t", dst)
+                status_in_summary = summary.get(tapeout, {}).get("Status", "")
+                if status_in_summary in config.TAPEOUT_STATUSES_TO_SKIP:
+                    print("\t\t", f"Skip {tapeout} ({status_in_summary})")
+                    continue
+
+                print(f"\tRequesting {tapeout} data...")
+                data = get_tapeout_data(token, tapeout)
+                data = format_data(data)
+
+                # Add url
+                data["url"] = urls.get(tapeout, "")
+
+                # Write tape-out file
+                dst = config.TAPEOUT_DIR / f"{tapeout}.json"
+                with open(dst, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False, indent=4)
+                print("\t\t", dst)
+
+                # Write into summary
+                summary[tapeout] = {k: data[k] for k in config.SUMMARY_KEYS}
+                with open(config.SUMMARY_FILE, "w", encoding="utf-8") as f:
+                    json.dump(summary, f, ensure_ascii=False, indent=4)
+
+                # exit()
+
+        time.sleep(settings["sleep_sec"])

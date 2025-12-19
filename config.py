@@ -1,16 +1,8 @@
 import os
 import json
-from datetime import datetime, timedelta
-import string
 from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
-
-
-if os.name == "nt":
-    URL_FILE = "tmp/url.json"
-else:
-    URL_FILE = "/home/marit/python/skyfoundry-scraper/output/url.json"
 
 
 def load_settings():
@@ -18,18 +10,14 @@ def load_settings():
         return json.load(f)
 
 
-def get_start_date():
-    settings = load_settings()
-    days = settings["lookback_days"]
-    return (datetime.now() - timedelta(days=days)).strftime("%m/%d/%Y")
+if os.name == "nt":
+    URL_FILE = "tmp/url.json"
+else:
+    URL_FILE = "/home/marit/python/skyfoundry-scraper/output/url.json"
 
-
-def get_revision_codes(part: str):
-    codes = string.ascii_uppercase
-    if part[0] in ["D", "J"]:
-        # MPS starts from "N"
-        return codes[codes.index("N"):]
-    return codes
+SUMMARY_FILE = "output/summary.json"
+TAPEOUT_DIR = Path("output/tapeout/")
+os.makedirs(TAPEOUT_DIR, exist_ok=True)
 
 
 AUTHORITY = os.getenv("AUTHORITY")
@@ -41,18 +29,19 @@ CLIENT_SECRET = os.getenv("AAD_CLIENT_SECRET")
 SUBSCRIPTION_KEY = os.getenv("APIM_SUBSCRIPTION_KEY")
 
 
-SLEEP_TIME = 60*60
-IGNORED_STATUSES = ["taped out", "cancelled"]
-
+TAPEOUT_STATUSES_TO_SKIP = [
+    "Taped Out", "Cancelled"
+]
 
 SUMMARY_KEYS = [
     "ScheduledTapeOutDate",
     "Status",
-    "url",
-    "BandNames",
     "Application",
+    "Bands",
+    "SkyNumber",
     "LeadDesigner",
     "TeamLeader",
+    "url",
 ]
 
 KEYS_TO_IGNORE = [
