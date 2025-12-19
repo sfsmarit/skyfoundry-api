@@ -29,7 +29,7 @@ CLIENT_SECRET = os.getenv("AAD_CLIENT_SECRET")
 SUBSCRIPTION_KEY = os.getenv("APIM_SUBSCRIPTION_KEY")
 
 
-TAPEOUT_STATUSES_TO_SKIP = [
+STATUSES_TO_EXLUDE = [
     "Taped Out", "Cancelled"
 ]
 
@@ -44,7 +44,7 @@ SUMMARY_KEYS = [
     "url",
 ]
 
-KEYS_TO_IGNORE = [
+KEYS_TO_EXCLUDE = [
     "OriginalTapeOutName",
     "CreatedByID",
     "CreatedBy",

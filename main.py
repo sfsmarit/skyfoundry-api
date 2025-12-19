@@ -8,7 +8,7 @@ import time
 def format_data(data: dict):
     result = {}
     for k, v in data.items():
-        if k in config.KEYS_TO_IGNORE:
+        if k in config.KEYS_TO_EXCLUDE:
             continue
 
         if not v:
@@ -119,7 +119,7 @@ if __name__ == "__main__":
                 tapeout = data["TapeOutName"]
 
                 status_in_summary = summary.get(tapeout, {}).get("Status", "")
-                if status_in_summary in config.TAPEOUT_STATUSES_TO_SKIP:
+                if status_in_summary in config.STATUSES_TO_EXLUDE:
                     print("\t\t", f"Skip {tapeout} ({status_in_summary})")
                     continue
 
