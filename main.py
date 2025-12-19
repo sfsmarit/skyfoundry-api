@@ -25,7 +25,7 @@ def format_data(data: dict):
             case "Approvals":
                 result[k] = {d["Function"]: bool(d["SignedOffDateTime"]) for d in v}
             case "Bands":
-                result["Band"] = "/".join(d["Band"] for d in v)
+                result[k] = "/".join(d["Band"] for d in v)
             case "DXFDetails":
                 result["DRC"] = v[0]["DRC"]
             case "MaskLayers":
