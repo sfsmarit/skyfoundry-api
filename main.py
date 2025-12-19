@@ -11,10 +11,6 @@ def format_data(data: dict):
         if k in config.KEYS_TO_EXCLUDE:
             continue
 
-        if not v:
-            result[k] = v
-            continue
-
         if "Date" in k:
             result[k] = v[:10].replace("-", "/")
             continue
@@ -27,7 +23,7 @@ def format_data(data: dict):
             case "Bands":
                 result[k] = "/".join(d["Band"] for d in v)
             case "DXFDetails":
-                result["DRC"] = v[0]["DRC"]
+                result[k] = v[0]["DRC"]
             case "MaskLayers":
                 result[k] = {
                     d["Layer"]: {
