@@ -1,5 +1,5 @@
 import json
-from main import format_data
+from skfapi import format_data
 import config
 
 
