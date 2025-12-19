@@ -12,7 +12,7 @@ def format_data(data: dict):
             continue
 
         if not v:
-            result[k] = None
+            result[k] = v
             continue
 
         if "Date" in k:
