@@ -7,6 +7,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+if os.name == "nt":
+    URL_FILE = "tmp/url.json"
+else:
+    URL_FILE = "/home/marit/python/skyfoundry-scraper/output/url.json"
+
+DST_ROOT_DIR = Path("/data/tapeout")
+DST_DATA_DIR = DST_ROOT_DIR / "data"
+
+
 def load_settings():
     with open("settings.json", encoding="utf-8") as f:
         return json.load(f)
@@ -25,9 +34,6 @@ def get_revision_codes(part: str):
         return codes[codes.index("N"):]
     return codes
 
-
-DST_ROOT_DIR = Path("/data/tapeout")
-DST_DATA_DIR = DST_ROOT_DIR / "data"
 
 AUTHORITY = os.getenv("AUTHORITY")
 CLIENT_ID = os.getenv("CLIENT_ID")
@@ -52,56 +58,86 @@ SUMMARY_KEYS = [
     "TeamLeader",
 ]
 
-SAVED_KEYS = [
-    "TapeOutNumber",  # : 23752,
-    "ScheduledTapeOutDate",  # ": \/Date(1761894000000)\/"
-    "NewOrRevision",  # : "New",
-    "ProductTypeName",  # : "MPS",
-    "TapeOutTypeLabel",  # : "Engineering",
-    "StatusName",  # : "Scheduled",
-    "DesignSiteCode",  # : "IRV",
-    "ApplicationName",  # : "Filter",
-    "ProductDescription",  # : "2027_MPS_B12Rx+B13Rx+B14Rx/B28FRx_SKY53980 (PFAS Free + Modified cavity, MPS2.6, CSP5) MIMO",
-
-    "DesignerID",  # : "marit",
-    "DesignerName",  # : "Tomoo Mari",
-    "SFSTeamLeaderName",  # : "Masafumi Iwaki",
-    "Frequency",  # : "764M",
-    "BandNames",  # : ["12","13","14","28"],
-    "ProductManagerName",  # : "Ayumi Nishitaki",
-    "TechnologyName",  # : "MPS LB2.6",
-    "BETechnologyName",  # : "WLCSP5.1",
-    "SolderTechnologyName",  # : "Solder",
-    "PDKFETechnologyName",  # : "fe26",
-    "PDKBETechnologyName",  # : "mps5",
-    "SkyName",  # : "53980",
-    "ProjectName",  # : "Stratosphere",
-    "KeyCustomer",  # : "",
-
-    "MDRNumber",  # : "Not found",
-
-    "DXFFileDescriptions",
-    "ChipSizeX",  # : 1100,
-    "ChipSizeY",  # : 990,
-    "ProductSizeX",  # : 1100,
-    "ProductSizeY",  # : 990,
-    "GDPW",  # : 9860,
-    "DicingTypeName",  # : "Stealth Dicing",
-    "DicingWidthX",  # : 0,
-    "DicingWidthY",  # : 0,
-    "WaferRotation",  # : "None",
-
-    "OneSIDTPitch",  # : 4.677,
-    "DutyFactorOffsetValue",  # : 0.6,
-    "OneSSpaceWidthInCAD",  # : 1.1721,
-    "OneSLineWidthInCAD",  # : 1.1664,
-    "MParFileUsedInDesign",  # : "MPS2.5_LB03b_R042_Mo140_Al400_SiN20_LT0900_SiO2_0800_r1.0.mpar",
-    "MParFileUsedInDesign2",  # : "",
-    "MParFileUsedInDesign3",  # : "",
-
-    "PurchaseRequests",
-
-    "StackedFilterTapeOutName",  # : null,
-    # "PDKFETechnologyVersion", #: "fe26_lb",
-    # "PDKBETechnologyVersion", #: "mps5sd",
+KEYS_TO_IGNORE = [
+    "OriginalTapeOutName",
+    "CreatedByID",
+    "CreatedBy",
+    "CreatedDate",
+    "UpdatedByID",
+    "UpdatedBy",
+    "UpdatedDate",
+    "Location",
+    "PartName",
+    "FoundryPartName",
+    "Version",
+    "MaskShop",
+    "EdgeExclusion",
+    "BondingOptions",
+    "BondingOptionsSub",
+    "PostProcessingDetails",
+    "ScribePassivationRequirements",
+    "SubstrateEPIDetails",
+    "RevisionReason",
+    "RevisionReasonDetail",
+    "RevisionReasonText",
+    "VersionNo",
+    "TeamLeaderID",
+    "ProductTestEngineerID",
+    "ProductTestEngineer",
+    "ProductManagerID",
+    "ProgramManagerID",
+    "ProgramManager",
+    "ReleasedToMaskShopDate",
+    "ActualTapeOutDate",
+    "DataReadyDateTime",
+    "AlignmentLayoutNo",
+    "ThicknessAlMgCu",
+    "ThicknessMo",
+    "ThicknessSiO2_1",
+    "ThicknessSiO2_2",
+    "ThicknessSiO2_3",
+    "SiO2ThicknessTrimming",
+    "FrequencyTrimming",
+    "MarkerLocationInProductBottomView",
+    "IDTDirection",
+    "ProvidingInternalReticleFloorplan",
+    "ReticleLayoutFile",
+    "DieMapMaskLayoutFile",
+    "MaskLayerNotes",
+    "SpecialRequest",
+    "WaveLength",
+    "DutyFactor",
+    "LineWidth",
+    "SpaceWidth",
+    "MinimumLineWidthInDesign",
+    "M1MetallizedAreaRatio",
+    "CarrierAggr",
+    "NumberOfPins",
+    "IsPurchaseOrderFree",
+    "PurchaseOrderFreeReason",
+    "Pellicle",
+    "BudgetCodeNotes",
+    "Split",
+    "WaferType",
+    "Architecture",
+    "PinPosition",
+    "DesignNumber",
+    "TapeOutDescription",
+    "ProcessStartDate",
+    "AlignmentLocationX",
+    "AlignmentLocationY",
+    "RecipeListFile",
+    "MaskPONumber",
+    "DesignReviewTemplate",
+    "DesignParameterChecklist",
+    "MDRMessage",
+    "MDRComments",
+    "MDRReleaseDate",
+    "Attachments",
+    "Comments",
+    "GDSDetails",
+    "LotStartRequests",
+    "ThirdPartyIP",
+    "UsersOnProject",
+    "WaferOrders",
 ]

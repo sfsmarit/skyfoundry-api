@@ -5,7 +5,45 @@ import json
 
 
 def format_data(data: dict):
-    return data
+    result = {}
+    for k, v in data.items():
+        if k in config.KEYS_TO_IGNORE:
+            continue
+
+        if not v:
+            result[k] = v
+            continue
+
+        if "Date" in k:
+            result[k] = v[:10].replace("-", "/")
+            continue
+
+        match k:
+            case "WaferSize":
+                result[k] = v[:v.index('"')] + "inch"
+            case "Approvals":
+                result[k] = {d["Function"]: bool(d["SignedOffDateTime"]) for d in v}
+            case "Bands":
+                result[k] = [d["Band"] for d in v]
+            case "DXFDetails":
+                result["DRC"] = v[0]["DRC"]
+            case "MaskLayers":
+                result[k] = {
+                    d["Layer"]: {
+                        "OrderMask": True if d["OrderMask"].lower() == "yes" else False,
+                        "SFSMaskName": d["SFSMaskName"],
+                    } for d in v
+                }
+            case "PurchaseOrders":
+                result[k] = {d["RequestNo"]: d["TechnologyArea"] for d in v}
+            case "StackLayers":
+                result[k] = {d["StackLayerName"]: d["StackLayerValue"] for d in v}
+            case "Waivers":
+                result[k] = {d["WaiverType"][1:]: d["WaiverStatus"] for d in v}
+            case _:
+                result[k] = v
+
+    return result
 
 
 def acquire_token_client_credentials() -> str:
@@ -54,6 +92,9 @@ if __name__ == "__main__":
     token = acquire_token_client_credentials()
     settings = config.load_settings()
 
+    with open(config.URL_FILE, encoding="utf-8") as f:
+        urls = json.load(f)
+
     for word in settings["target_parts"]:
         print(f"Requesting {word} data...")
         tapeouts = find_tapeouts(token, word)
@@ -65,6 +106,8 @@ if __name__ == "__main__":
             print(f"Requesting {tapeout} data...")
             data = get_tapeout_data(token, tapeout)
             data = format_data(data)
+
+            data["url"] = urls.get(tapeout, "")
 
             dst = config.DST_DATA_DIR / f"{tapeout}.json"
             with open(dst, "w", encoding="utf-8") as f:
