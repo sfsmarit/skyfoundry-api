@@ -11,6 +11,10 @@ def format_data(data: dict):
         if k in config.KEYS_TO_EXCLUDE:
             continue
 
+        if not v:
+            result[k] = None
+            continue
+
         if "Date" in k:
             result[k] = v[:10].replace("-", "/")
             continue
