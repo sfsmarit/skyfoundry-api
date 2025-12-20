@@ -4,7 +4,7 @@ import json
 import skfapi as api
 
 
-word = sys.argv[0]
+word = sys.argv[1]
 
 # ---------------------------------
 
