@@ -63,7 +63,7 @@ KEYS_TO_EXCLUDE = [
     "PostProcessingDetails",
     "ScribePassivationRequirements",
     "SubstrateEPIDetails",
-    "RevisionReason",
+    # "RevisionReason",
     "RevisionReasonDetail",
     "RevisionReasonText",
     "VersionNo",

@@ -17,6 +17,6 @@ except Exception as e:
     exit()
 
 # Write tape-out file
-dst = f"test_{tapeout}.json"
+dst = f"{tapeout}_raw.json"
 with open(dst, "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=4)
