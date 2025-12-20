@@ -11,7 +11,7 @@ word = sys.argv[0]
 
 token = api.acquire_token_client_credentials()
 
-print(f"Requesting {word} data...")
+print(f"Requesting tapeouts including '{word}'...")
 try:
     tapeouts = api.find_tapeouts(token, word)
 except Exception as e:

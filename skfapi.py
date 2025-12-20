@@ -112,7 +112,7 @@ if __name__ == "__main__":
             urls = {}
 
         for word in settings["target_parts"]:
-            print(f"Requesting {word} data...")
+            print(f"Requesting tapeouts including '{word}'...")
             try:
                 tapeouts = find_tapeouts(token, word)
             except Exception as e:
