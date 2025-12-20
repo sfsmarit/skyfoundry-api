@@ -44,6 +44,17 @@ def format_data(data: dict):
             case _:
                 result[k] = v
 
+    # Rename keys
+    renames = {
+        "DXFDetails": "DRC",
+        "RevisionReasonDetail": "NewOrRev",
+    }
+    for old, new in renames.items():
+        result[new] = result.pop(old)
+
+    # Modify values
+    result["NewOrRev"] = "New" if result["NewOrRev"][:7].lower() == "initial" else "Rev"
+
     return result
 
 
