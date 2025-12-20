@@ -1,22 +1,22 @@
 import json
-from skfapi import format_data
-import config
+import skfapi as api
 
 
-file = "tmp/DG030-N-OSK.json"
-dst = "tmp/fmt_" + file[4:]
+tapeout = "DF030-P-OSK"
+
+# ---------------------------------
 
 
-with open(file, encoding="utf-8") as f:
-    data = json.load(f)
+token = api.acquire_token_client_credentials()
 
-formatted_data = format_data(data)
+print(f"\tRequesting {tapeout}...")
+try:
+    data = api.get_tapeout_data(token, tapeout)
+except Exception as e:
+    print(e)
+    exit()
 
-with open(config.URL_FILE, encoding="utf-8") as f:
-    urls = json.load(f)
-
-part = formatted_data["TapeOutName"]
-formatted_data["url"] = urls.get(part, "")
-
+# Write tape-out file
+dst = f"test_{tapeout}.json"
 with open(dst, "w", encoding="utf-8") as f:
-    data = json.dump(formatted_data, f, indent=4)
+    json.dump(data, f, ensure_ascii=False, indent=4)

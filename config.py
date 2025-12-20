@@ -45,7 +45,7 @@ SUMMARY_KEYS = [
 ]
 
 KEYS_TO_EXCLUDE = [
-    # "OriginalTapeOutName",
+    "OriginalTapeOutName",
     "CreatedByID",
     "CreatedBy",
     "CreatedDate",
