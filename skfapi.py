@@ -23,7 +23,11 @@ def format_data(data: dict):
             case "WaferSize":
                 result[k] = v[:v.index('"')] + "inch"
             case "Approvals":
-                result[k] = {d["Function"]: bool(d["SignedOffDateTime"]) for d in v}
+                result[k] = {}
+                for d in v:
+                    result[k][d["Function"]] = bool(d["SignedOffDateTime"])
+                    if d["Function"] == "Manual Layout Check":
+                        result["ManualChecker"] = d["ADUser"]
             case "Bands":
                 result[k] = "/".join(d["Band"] for d in v)
             case "DXFDetails":

@@ -1,0 +1,412 @@
+{
+    "TapeOutName": "DF030-N-OSK",
+    "OriginalTapeOutName": "DF030-N-OSK",
+    "TapeOutNumber": 23274,
+    "CreatedByID": "satoa",
+    "CreatedBy": "Aki Sato",
+    "CreatedDate": "2025-06-06T00:50:06.72",
+    "UpdatedByID": "kitamuy",
+    "UpdatedBy": "Yuki Kitamura",
+    "UpdatedDate": "2025-08-17T17:49:46.347",
+    "Location": "SFS",
+    "Status": "Taped Out",
+    "PartName": "DF030-N",
+    "FoundryPartName": null,
+    "Version": "N",
+    "DesignSite": "Irvine (IRV)",
+    "ProductType": "MPS",
+    "Application": "Filter",
+    "MaskShop": null,
+    "EdgeExclusion": null,
+    "BondingOptions": null,
+    "BondingOptionsSub": null,
+    "PostProcessingDetails": null,
+    "ScribePassivationRequirements": null,
+    "SubstrateEPIDetails": null,
+    "RevisionReason": "Product Development Vehicle",
+    "RevisionReasonDetail": "Initial die design tape out",
+    "RevisionReasonText": "Product Development Vehicle-Initial die design tape out",
+    "VersionNo": 5,
+    "BusinessUnit": "Mobile Solutions Business",
+    "ProductDescription": "Agile: 2027_MPS_n105_Filter_SKY58492, Event: PA Eval, PFAS Free, MPS2.5 Stretch, CSP5",
+    "LeadDesignerID": "marit",
+    "LeadDesigner": "Tomoo Mari",
+    "TeamLeaderID": "iwakim",
+    "TeamLeader": "Masafumi Iwaki",
+    "ProductTestEngineerID": null,
+    "ProductTestEngineer": null,
+    "ProductManagerID": "satoa",
+    "ProductManager": "Aki Sato",
+    "ProgramManagerID": "canlasa",
+    "ProgramManager": "Amador Canlas",
+    "FEFoundry": "Osaka",
+    "FETechnology": "MPS LB2.5",
+    "BEFoundry": "Singapore",
+    "BETechnology": "WLCSP5.1",
+    "SolderFoundry": "Singapore",
+    "SolderTechnology": "Solder",
+    "OrderRequestedDate": "2025-06-18T00:00:00",
+    "ScheduledTapeOutDate": "2025-06-18T00:00:00",
+    "ReleasedToMaskShopDate": null,
+    "ActualTapeOutDate": "2025-06-24T00:00:00",
+    "DataReadyDateTime": null,
+    "AlignmentLayoutNo": null,
+    "ChipSizeX": 793,
+    "ChipSizeY": 768,
+    "DicingWidthX": 0,
+    "DicingWidthY": 0,
+    "DicingType": null,
+    "ProductSizeX": 793,
+    "ProductSizeY": 768,
+    "WaferRotation": "None",
+    "ThicknessAlMgCu": null,
+    "ThicknessMo": null,
+    "ThicknessSiO2_1": null,
+    "ThicknessSiO2_2": null,
+    "ThicknessSiO2_3": null,
+    "SiO2ThicknessTrimming": null,
+    "FrequencyTrimming": null,
+    "GDPW": 18386,
+    "MarkerLocationInProductBottomView": "Bottom Right",
+    "IDTDirection": "Type1",
+    "ProvidingInternalReticleFloorplan": "",
+    "ReticleLayoutFile": "[Reticle Layout File]D127S_793x768_7x8_SingleQuad.pptx",
+    "DieMapMaskLayoutFile": null,
+    "MaskLayerNotes": null,
+    "SpecialRequest": null,
+    "WaveLength": null,
+    "DutyFactor": null,
+    "DutyFactorOffsetValue": 0.6,
+    "LineWidth": null,
+    "SpaceWidth": null,
+    "MinimumLineWidthInDesign": null,
+    "M1MetallizedAreaRatio": null,
+    "CarrierAggr": null,
+    "NumberOfPins": null,
+    "IsPurchaseOrderFree": "No",
+    "PurchaseOrderFreeReason": null,
+    "Pellicle": null,
+    "BudgetCode": "316241655",
+    "BudgetCodeNotes": null,
+    "Split": "No",
+    "WaferType": null,
+    "Frequency": "632M",
+    "Architecture": null,
+    "PinPosition": null,
+    "DesignNumber": null,
+    "SkyNumber": "58492",
+    "ProjectName": "Stratosphere",
+    "KeyCustomer": null,
+    "TapeOutDescription": null,
+    "WaferSize": "6\"",
+    "ProcessStartDate": "2025-06-18T19:33:37.89",
+    "MParFileUsedInDesign1": "MPS2.5_LB03b_R042_Mo140_Al400_SiN20_LT0900_SiO2_0800_r1.0.mpar",
+    "MParFileUsedInDesign2": null,
+    "MParFileUsedInDesign3": null,
+    "AlignmentLocationX": null,
+    "AlignmentLocationY": null,
+    "OneSIDTPitch": 5.7,
+    "OneSLineWidthInCAD": 1.443,
+    "OneSSpaceWidthInCAD": 1.407,
+    "RecipeListFile": null,
+    "MaskPONumber": null,
+    "DesignReviewTemplate": null,
+    "DesignParameterChecklist": null,
+    "MDRNumber": "MDR-003552",
+    "MDRMessage": "MDR-003552 is Released in Agile PLM for this Mask # and Rev.",
+    "MDRComments": null,
+    "MDRReleaseDate": "2025-06-22T00:00:00",
+    "Approvals": [
+        {
+            "ADUser": null,
+            "ADUserID": null,
+            "Function": "DRC Check",
+            "SignedOffDateTime": null,
+            "TechnologyVariantID": null,
+            "OverriddenByRole": null
+        },
+        {
+            "ADUser": "Nobuo Fuse",
+            "ADUserID": "fusen",
+            "Function": "Wafer Map Engineer",
+            "SignedOffDateTime": "2025-06-09T18:27:15.527",
+            "TechnologyVariantID": null,
+            "OverriddenByRole": null
+        },
+        {
+            "ADUser": "Mitsuhiro Habuta",
+            "ADUserID": "habutam",
+            "Function": "Manual Layout Check",
+            "SignedOffDateTime": "2025-06-18T21:41:03.55",
+            "TechnologyVariantID": null,
+            "OverriddenByRole": null
+        },
+        {
+            "ADUser": "Masafumi Iwaki",
+            "ADUserID": "iwakim",
+            "Function": "Simulation Approval",
+            "SignedOffDateTime": "2025-06-18T19:33:37.89",
+            "TechnologyVariantID": null,
+            "OverriddenByRole": null
+        },
+        {
+            "ADUser": "Takeshi Z Kawamura",
+            "ADUserID": "kawamut1",
+            "Function": "Process Engineer",
+            "SignedOffDateTime": "2025-06-18T00:10:14.76",
+            "TechnologyVariantID": "MPS LB2.5-2",
+            "OverriddenByRole": null
+        },
+        {
+            "ADUser": "Tomoo Mari",
+            "ADUserID": "marit",
+            "Function": "Final Die Design Ready",
+            "SignedOffDateTime": "2025-06-18T20:23:22.36",
+            "TechnologyVariantID": null,
+            "OverriddenByRole": null
+        },
+        {
+            "ADUser": "Tomoo Mari",
+            "ADUserID": "marit",
+            "Function": "Lead Designer",
+            "SignedOffDateTime": "2025-06-19T17:36:06.147",
+            "TechnologyVariantID": null,
+            "OverriddenByRole": null
+        },
+        {
+            "ADUser": "Rika Miyashita",
+            "ADUserID": "miyashr",
+            "Function": "PCM Checker",
+            "SignedOffDateTime": "2025-06-16T16:07:27.313",
+            "TechnologyVariantID": null,
+            "OverriddenByRole": null
+        }
+    ],
+    "Attachments": [
+        {
+            "AttachmentName": "0521_Final Reticle Layout Check List_MPS(Rev1)_DF030N.xlsm",
+            "Description": "Process Check"
+        },
+        {
+            "AttachmentName": "DF030N_MPS5_マスクデータチェック.xlsx",
+            "Description": "Mask_CheckSheet"
+        },
+        {
+            "AttachmentName": "DF030_1XBEN_CuPLExPinArea.csv",
+            "Description": "BEarea"
+        },
+        {
+            "AttachmentName": "DF030-N MDP_specifications for MPS SAW_r2.0.xlsx",
+            "Description": null
+        }
+    ],
+    "Bands": [
+        {
+            "Band": "N105 (B71F+ 5MHz extension)"
+        }
+    ],
+    "Comments": null,
+    "DXFDetails": [
+        {
+            "DXFName": "DF030TM_N",
+            "QualificationStatus": "Phase 0,1 = Exploratory",
+            "FETechnologyVariantName": "MPS LB2.5-2",
+            "FETechnologyDescription": "MPS2.5/Thick M2",
+            "BETechnologyVariantName": "WLCSP5.1_2 SD",
+            "BETechnologyDescription": "WLCSP5.1_2 SD",
+            "SolderTechnologyVariantName": "Solder",
+            "SolderTechnologyDescription": "Solder",
+            "LowerLeftCornerX": null,
+            "LowerLeftCornerY": null,
+            "UpperRightCornerX": null,
+            "UpperRightCornerY": null,
+            "DRC": "Clean"
+        }
+    ],
+    "GDSDetails": null,
+    "LotStartRequests": null,
+    "MaskLayers": [
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-BQ-N",
+            "MaskDescription": "BQ",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "Solder",
+            "CadenceLayer": null,
+            "GDSLayer": "WZ"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-D1-N",
+            "MaskDescription": "D1",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "Cu PLATE_MPS",
+            "CadenceLayer": "CuPL",
+            "GDSLayer": "27"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-D5-N",
+            "MaskDescription": "D5",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "Cu Terminal_MPS",
+            "CadenceLayer": "ExPIN",
+            "GDSLayer": "29"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-D7-N",
+            "MaskDescription": "D7",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "Buffer Coat5_MPS",
+            "CadenceLayer": "BC5",
+            "GDSLayer": "35"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-DJ-N",
+            "MaskDescription": "DJ",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "CAV_MPS",
+            "CadenceLayer": "CAV",
+            "GDSLayer": "25"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-DK-N",
+            "MaskDescription": "DK",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "CAV ROOF_MPS",
+            "CadenceLayer": "ROF",
+            "GDSLayer": "26"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-LTTR-N",
+            "MaskDescription": "LTTR",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "LT Trench",
+            "CadenceLayer": "LTTR",
+            "GDSLayer": "34"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-M1-N",
+            "MaskDescription": "M1",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "IDT1",
+            "CadenceLayer": "SAW_M1",
+            "GDSLayer": "2"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-M2-N",
+            "MaskDescription": "M2",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "MPS PAD",
+            "CadenceLayer": "MPS_M2",
+            "GDSLayer": "6"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-LT-N",
+            "MaskDescription": "MPS_LTE",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "MPS LT Etching",
+            "CadenceLayer": "MPS_LTE",
+            "GDSLayer": "39"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-PB-N",
+            "MaskDescription": "PB",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "MPS Polyimide Bridge",
+            "CadenceLayer": "MPS_PB1",
+            "GDSLayer": "33"
+        },
+        {
+            "OrderMask": "Yes",
+            "SFSMaskName": "DF030-V3-N",
+            "MaskDescription": "PV3",
+            "MaskOrigin": "DF030-N-OSK",
+            "Layer": "MPS Passivation via",
+            "CadenceLayer": "MPS_PV3",
+            "GDSLayer": "8"
+        }
+    ],
+    "PurchaseOrders": [
+        {
+            "RequestNo": "PR20335",
+            "TechnologyArea": "FE"
+        },
+        {
+            "RequestNo": "PR20336",
+            "TechnologyArea": "FE"
+        },
+        {
+            "RequestNo": "PR20338",
+            "TechnologyArea": "BE"
+        },
+        {
+            "RequestNo": "PR20338",
+            "TechnologyArea": "Solder"
+        }
+    ],
+    "StackLayers": [
+        {
+            "StackLayerName": "PV3",
+            "StackLayerValue": "20"
+        },
+        {
+            "StackLayerName": "PV2",
+            "StackLayerValue": "-"
+        },
+        {
+            "StackLayerName": "AlMgCu",
+            "StackLayerValue": "400"
+        },
+        {
+            "StackLayerName": "Mo",
+            "StackLayerValue": "140"
+        },
+        {
+            "StackLayerName": "Piezo (Cut/LT/SiO2-t)",
+            "StackLayerValue": "42Y/0.9um/0.8um"
+        },
+        {
+            "StackLayerName": "Si(<100> or <111>)",
+            "StackLayerValue": "111"
+        }
+    ],
+    "ThirdPartyIP": null,
+    "UsersOnProject": [
+        {
+            "ADUser": "George Fujiwara",
+            "ADUserID": "fujiwaj",
+            "RoleOnProject": "Designer"
+        },
+        {
+            "ADUser": "Masafumi Iwaki",
+            "ADUserID": "iwakim",
+            "RoleOnProject": "Designer"
+        }
+    ],
+    "WaferOrders": null,
+    "Waivers": [
+        {
+            "CreatedDate": "2025-06-17T03:27:45.65",
+            "WaiverNumber": 2351,
+            "WaiverStatus": "Approved",
+            "WaiverType": " DRC",
+            "WaiverReason": "Historically Approved",
+            "WaiverTechnology": "MPS LB2.5",
+            "WaiverTechnologyVariant": "MPS LB2.5-2 (Phase 0,1 = Exploratory),",
+            "IsPerformanceRisk": "No",
+            "IsQualRelRisk": "No",
+            "IsPackageRisk": "No",
+            "WillBeFixedInProd": "No",
+            "Description": "See attached slide"
+        }
+    ]
+}
