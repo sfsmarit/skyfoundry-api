@@ -57,7 +57,8 @@ def format_data(data: dict):
         result[new] = result.pop(old)
 
     # Modify values
-    result["NewOrRev"] = "New" if result["NewOrRev"][:7].lower() == "initial" else "Rev"
+    result["NewOrRev"] = "New" if not result["NewOrRev"] or \
+        result["NewOrRev"][:7].lower() == "initial" else "Rev"
 
     return result
 
