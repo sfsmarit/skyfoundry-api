@@ -2,7 +2,7 @@ import msal
 import requests
 import config
 import json
-import time
+from datetime import datetime
 
 
 def format_data(data: dict):
@@ -108,63 +108,64 @@ def get_tapeout_data(token: str, tapeout: str):
 if __name__ == "__main__":
     token = acquire_token_client_credentials()
 
-    while True:
-        settings = config.load_settings()
+    settings = config.load_settings()
 
-        # Load summary
+    # Load summary
+    try:
+        with open(config.SUMMARY_FILE, encoding="utf-8") as f:
+            summary = json.load(f)
+    except:
+        print(f"{config.SUMMARY_FILE} not found")
+        summary = {}
+
+    # Load url
+    try:
+        with open(config.URL_FILE, encoding="utf-8") as f:
+            urls = json.load(f)
+    except:
+        print(f"{config.URL_FILE} not found")
+        urls = {}
+
+    for word in settings["headers"]:
+        print(f"Requesting tapeouts including '{word}'...")
         try:
-            with open(config.SUMMARY_FILE, encoding="utf-8") as f:
-                summary = json.load(f)
-        except:
-            print(f"{config.SUMMARY_FILE} not found")
-            summary = {}
+            tapeouts = find_tapeouts(token, word)
+        except Exception as e:
+            print(e)
+            continue
 
-        # Load url
-        try:
-            with open(config.URL_FILE, encoding="utf-8") as f:
-                urls = json.load(f)
-        except:
-            print(f"{config.URL_FILE} not found")
-            urls = {}
+        for data in tapeouts:
+            tapeout = data["TapeOutName"]
 
-        for word in settings["target_parts"]:
-            print(f"Requesting tapeouts including '{word}'...")
+            status_in_summary = summary.get(tapeout, {}).get("Status", "")
+            if status_in_summary in config.STATUSES_TO_EXLUDE:
+                print("\t\t", f"Skip {tapeout} ({status_in_summary})")
+                continue
+
+            print(f"\tRequesting {tapeout}...")
             try:
-                tapeouts = find_tapeouts(token, word)
+                data = get_tapeout_data(token, tapeout)
             except Exception as e:
                 print(e)
                 continue
 
-            for data in tapeouts:
-                tapeout = data["TapeOutName"]
+            data = format_data(data)
 
-                status_in_summary = summary.get(tapeout, {}).get("Status", "")
-                if status_in_summary in config.STATUSES_TO_EXLUDE:
-                    print("\t\t", f"Skip {tapeout} ({status_in_summary})")
-                    continue
+            # Add url
+            data["url"] = urls.get(tapeout, "")
 
-                print(f"\tRequesting {tapeout}...")
-                try:
-                    data = get_tapeout_data(token, tapeout)
-                except Exception as e:
-                    print(e)
-                    continue
+            # Write tape-out file
+            dst = config.TAPEOUT_DIR / f"{tapeout}.json"
+            with open(dst, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
 
-                data = format_data(data)
+            # Write into summary
+            summary[tapeout] = {k: data[k] for k in config.SUMMARY_KEYS}
+            with open(config.SUMMARY_FILE, "w", encoding="utf-8") as f:
+                json.dump(summary, f, ensure_ascii=False, indent=4)
 
-                # Add url
-                data["url"] = urls.get(tapeout, "")
+            # exit()
 
-                # Write tape-out file
-                dst = config.TAPEOUT_DIR / f"{tapeout}.json"
-                with open(dst, "w", encoding="utf-8") as f:
-                    json.dump(data, f, ensure_ascii=False, indent=4)
-
-                # Write into summary
-                summary[tapeout] = {k: data[k] for k in config.SUMMARY_KEYS}
-                with open(config.SUMMARY_FILE, "w", encoding="utf-8") as f:
-                    json.dump(summary, f, ensure_ascii=False, indent=4)
-
-                # exit()
-
-        time.sleep(settings["sleep_sec"])
+    with open(config.UPDATE_LOG_FILE, "w", encoding="utf-8") as f:
+        f.write(datetime.now().strftime("%Y/%m/%d-%H:%M:%S")+"\n")
+        f.write(f"Headers: {settings['headers']}\n")

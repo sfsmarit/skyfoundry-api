@@ -10,13 +10,16 @@ def load_settings():
         return json.load(f)
 
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+
 if os.name == "nt":
-    URL_FILE = "tmp/url.json"
+    URL_FILE = SCRIPT_DIR / "tmp" / "url.json"
 else:
     URL_FILE = "/home/marit/python/skyfoundry-scraper/output/url.json"
 
-SUMMARY_FILE = "output/summary.json"
-TAPEOUT_DIR = Path("output/tapeout/")
+SUMMARY_FILE = SCRIPT_DIR / "output" / "summary.json"
+UPDATE_LOG_FILE = SCRIPT_DIR / "output" / "update.log"
+TAPEOUT_DIR = SCRIPT_DIR / "output" / "tapeout"
 os.makedirs(TAPEOUT_DIR, exist_ok=True)
 
 

@@ -1,6 +1,5 @@
 {
-    "sleep_sec": 3600,
-    "target_parts": [
+    "headers": [
         "DG", "DF", "DE", "DD",
         "JG", "JF", "JE", "JD",
         "EF",
