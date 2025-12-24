@@ -164,7 +164,7 @@ if __name__ == "__main__":
             with open(config.SUMMARY_FILE, "w", encoding="utf-8") as f:
                 json.dump(summary, f, ensure_ascii=False, indent=4)
 
-            # exit()
+            exit()
 
     with open(config.UPDATE_LOG_FILE, "w", encoding="utf-8") as f:
         f.write(datetime.now().strftime("%Y/%m/%d-%H:%M:%S")+"\n")
