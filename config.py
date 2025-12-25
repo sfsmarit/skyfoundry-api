@@ -5,12 +5,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+
+SETTING_FILE = SCRIPT_DIR / "settings.json"
+
+
 def load_settings():
-    with open("settings.json", encoding="utf-8") as f:
+    with open(SETTING_FILE, encoding="utf-8") as f:
         return json.load(f)
 
-
-SCRIPT_DIR = Path(__file__).resolve().parent
 
 if os.name == "nt":
     URL_FILE = SCRIPT_DIR / "tmp" / "url.json"
