@@ -3,6 +3,7 @@ import requests
 import config
 import json
 from datetime import datetime
+import time
 
 
 def format_data(data: dict):
@@ -105,7 +106,7 @@ def get_tapeout_data(token: str, tapeout: str):
     return r.json()["PartTapeOut"]
 
 
-if __name__ == "__main__":
+def run():
     token = acquire_token_client_credentials()
 
     settings = config.load_settings()
@@ -169,3 +170,10 @@ if __name__ == "__main__":
     with open(config.UPDATE_LOG_FILE, "w", encoding="utf-8") as f:
         f.write(datetime.now().strftime("%Y/%m/%d-%H:%M:%S")+"\n")
         f.write(f"Headers: {settings['headers']}\n")
+
+
+if __name__ == "__main__":
+    while True:
+        run()
+        setting = config.load_settings()
+        time.sleep(setting["sleep_time"])

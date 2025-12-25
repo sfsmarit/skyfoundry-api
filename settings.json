@@ -1,4 +1,5 @@
 {
+    "sleep_time": 3600,
     "headers": [
         "DG", "DF", "DE", "DD",
         "JG", "JF", "JE", "JD",
