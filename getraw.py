@@ -1,7 +1,7 @@
 import sys
 import json
 
-import main as api
+import skfapi as api
 
 
 word = sys.argv[1]
