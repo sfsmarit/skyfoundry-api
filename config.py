@@ -7,11 +7,9 @@ load_dotenv()
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 
-SETTING_FILE = SCRIPT_DIR / "settings.json"
-
 
 def load_settings():
-    with open(SETTING_FILE, encoding="utf-8") as f:
+    with open(SCRIPT_DIR / "settings.json", encoding="utf-8") as f:
         return json.load(f)
 
 
