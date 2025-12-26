@@ -106,7 +106,7 @@ def get_tapeout_data(token: str, tapeout: str):
     return r.json()["PartTapeOut"]
 
 
-def run():
+if __name__ == "__main__":
     token = acquire_token_client_credentials()
 
     settings = config.load_settings()
@@ -170,10 +170,3 @@ def run():
     with open(config.UPDATE_LOG_FILE, "w", encoding="utf-8") as f:
         f.write(datetime.now().strftime("%Y/%m/%d-%H:%M:%S")+"\n")
         f.write(f"Headers: {settings['headers']}\n")
-
-
-if __name__ == "__main__":
-    while True:
-        run()
-        setting = config.load_settings()
-        time.sleep(setting["sleep_time"])
