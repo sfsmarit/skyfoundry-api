@@ -128,7 +128,7 @@ if __name__ == "__main__":
         urls = {}
 
     for word in settings["headers"]:
-        print(f"Requesting tapeouts including '{word}'...")
+        print(f"Requesting tapeouts named '{word}'...")
         try:
             tapeouts = find_tapeouts(token, word)
         except Exception as e:
